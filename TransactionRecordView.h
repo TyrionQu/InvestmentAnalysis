@@ -9,17 +9,17 @@
 // Copyright (C) Microsoft Corporation
 // All rights reserved.
 
-// InvestmentAnalysisView.h : interface of the CInvestmentAnalysisView class
+// TransactionRecordView.h : interface of the CTransactionRecordView class
 //
 
 #pragma once
 
 
-class CInvestmentAnalysisView : public CView
+class CTransactionRecordView : public CListView
 {
 protected: // create from serialization only
-	CInvestmentAnalysisView() noexcept;
-	DECLARE_DYNCREATE(CInvestmentAnalysisView)
+	CTransactionRecordView() noexcept;
+	DECLARE_DYNCREATE(CTransactionRecordView)
 
 // Attributes
 public:
@@ -36,7 +36,7 @@ protected:
 
 // Implementation
 public:
-	virtual ~CInvestmentAnalysisView();
+	virtual ~CTransactionRecordView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -50,10 +50,12 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual void OnInitialUpdate();
 };
 
 #ifndef _DEBUG  // debug version in InvestmentAnalysisView.cpp
-inline CInvestmentAnalysisDoc* CInvestmentAnalysisView::GetDocument() const
+inline CInvestmentAnalysisDoc* CTransactionRecordView::GetDocument() const
    { return reinterpret_cast<CInvestmentAnalysisDoc*>(m_pDocument); }
 #endif
 

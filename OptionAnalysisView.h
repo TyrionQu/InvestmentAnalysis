@@ -1,11 +1,12 @@
 #pragma once
 
+#include "SortableListView.h"
 
 // COptionAnalysisBaseView view
 
 const unsigned int nMaxTitle = 32;
 
-class COptionAnalysisBaseView : public CListView
+class COptionAnalysisBaseView : public CSortableListView
 {
 	DECLARE_DYNCREATE(COptionAnalysisBaseView)
 
@@ -33,6 +34,7 @@ protected:
 public:
 	afx_msg void OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult);
 	virtual void OnInitialUpdate();
+	afx_msg void OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 class C510050OptionView : public COptionAnalysisBaseView
@@ -41,7 +43,7 @@ class C510050OptionView : public COptionAnalysisBaseView
 protected:
 	C510050OptionView()
 	{
-		_tcscpy_s(m_strViewTitle, nMaxTitle, _T("    50ETF期权分析    "));
+		_tcscpy_s(m_strViewTitle, nMaxTitle, _T("50ETF期权分析"));
 		m_strIndexFileName = std::string("sh510050.day");
 	}
 
@@ -54,7 +56,7 @@ class C510300OptionView : public COptionAnalysisBaseView
 protected:
 	C510300OptionView()
 	{
-		_tcscpy_s(m_strViewTitle, nMaxTitle, _T("   300ETF期权分析    "));
+		_tcscpy_s(m_strViewTitle, nMaxTitle, _T("300ETF期权分析"));
 		m_strIndexFileName = std::string("sh510300.day");
 	}
 

@@ -15,7 +15,7 @@
 
 // COptionAnalysisBaseView
 
-IMPLEMENT_DYNCREATE(COptionAnalysisBaseView, CListView)
+IMPLEMENT_DYNCREATE(COptionAnalysisBaseView, CSortableListView)
 
 COptionAnalysisBaseView::COptionAnalysisBaseView()
 {
@@ -26,8 +26,9 @@ COptionAnalysisBaseView::~COptionAnalysisBaseView()
 {
 }
 
-BEGIN_MESSAGE_MAP(COptionAnalysisBaseView, CListView)
+BEGIN_MESSAGE_MAP(COptionAnalysisBaseView, CSortableListView)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, &COptionAnalysisBaseView::OnNMCustomdraw)
+	ON_NOTIFY_REFLECT(LVN_GETINFOTIP, &COptionAnalysisBaseView::OnLvnGetInfoTip)
 END_MESSAGE_MAP()
 
 
@@ -36,13 +37,13 @@ END_MESSAGE_MAP()
 #ifdef _DEBUG
 void COptionAnalysisBaseView::AssertValid() const
 {
-	CListView::AssertValid();
+	CSortableListView::AssertValid();
 }
 
 #ifndef _WIN32_WCE
 void COptionAnalysisBaseView::Dump(CDumpContext& dc) const
 {
-	CListView::Dump(dc);
+	CSortableListView::Dump(dc);
 }
 #endif
 #endif //_DEBUG
@@ -61,33 +62,39 @@ void COptionAnalysisBaseView::OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult)
 		*pResult = CDRF_NOTIFYITEMDRAW;
 		break;
 	case CDDS_ITEMPREPAINT:
-		if (1 == pLVCD->nmcd.lItemlParam % 2) {
+		if (1 == pLVCD->nmcd.dwItemSpec % 2) {
 			pLVCD->clrTextBk = RGB(192, 192, 192);
 		}
 		*pResult = CDRF_NOTIFYSUBITEMDRAW;
 		break;
 	case CDDS_ITEMPREPAINT | CDDS_SUBITEM:
-		switch (pLVCD->iSubItem) {
-		case 1:
-		case 3:
-		case 6:
-		case 8:
-			if (1 == pLVCD->nmcd.lItemlParam % 2) {
-				pLVCD->clrText = RGB(128, 0, 0);
+		if (pLVCD->iSubItem > 10) {
+			if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+				pLVCD->clrText = RGB(255, 0, 255);
 			}
 			else {
-				pLVCD->clrText = RGB(255, 0, 0);
-			}
-			break;
-		default:
-			if (1 == pLVCD->nmcd.lItemlParam % 2) {
 				pLVCD->clrText = RGB(0, 0, 255);
 			}
-			else {
-				pLVCD->clrText = RGB(0, 0, 0);
-			}
-			break;
 		}
+		else {
+			if (pLVCD->iSubItem % 2) {
+				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+					pLVCD->clrText = RGB(128, 0, 0);
+				}
+				else {
+					pLVCD->clrText = RGB(255, 0, 0);
+				}
+			}
+			else {
+				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+					pLVCD->clrText = RGB(0, 0, 255);
+				}
+				else {
+					pLVCD->clrText = RGB(0, 0, 0);
+				}
+			}
+		}
+		break;
 	default:
 		break;
 	}
@@ -108,7 +115,7 @@ bool COptionAnalysisBaseView::IsFourthMidweek(int nDate)
 
 void COptionAnalysisBaseView::OnInitialUpdate()
 {
-	CListView::OnInitialUpdate();
+	CSortableListView::OnInitialUpdate();
 
 	CListCtrl& ListCtrl = GetListCtrl();
 	ListCtrl.ModifyStyle(0, LVS_REPORT | LVS_SINGLESEL | LVS_EDITLABELS | LVS_SHOWSELALWAYS);
@@ -118,19 +125,20 @@ void COptionAnalysisBaseView::OnInitialUpdate()
 	GetDocument()->SetTitle(m_strViewTitle);
 
 	LV_COLUMN  lvc;
-	TCHAR* arrTitle[] = { L"统计月份", L"当日收盘", L"T-1日收盘", L"T-2日收盘",
-		L"T-3日收盘", L"T-4收盘", L"当日涨幅", L"二日涨幅",
+	TCHAR* arrTitle[] = { L"统计月份", L"当日收盘", L"涨幅", L"T-1日收盘", L"涨幅", L"T-2日收盘", L"涨幅",
+		L"T-3日收盘", L"涨幅", L"T-4收盘", L"涨幅", L"当日涨幅", L"二日涨幅",
 		L"三日涨幅", L"四日涨幅", L"五日涨幅"
 	};
-	UCHAR      nWidth[] = { 120, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160 };
-	USHORT     nFMT[] = { LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER,
+	USHORT nWidth[] = { 120, 160, 90, 160, 90, 160, 90, 160, 90, 160, 90, 120, 120, 120, 120, 120 };
+	USHORT nFMT[] = { LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER,
 		LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER,
-		LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER
+		LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER,
+		LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_CENTER
 	};
 
 	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 
-	for (int i = 0; i < sizeof(nWidth) / sizeof(UCHAR); i++) {
+	for (int i = 0; i < sizeof(nWidth) / sizeof(USHORT); i++) {
 		lvc.iSubItem = i;
 		lvc.pszText = arrTitle[i];
 		lvc.cx = nWidth[i];
@@ -138,36 +146,36 @@ void COptionAnalysisBaseView::OnInitialUpdate()
 		ListCtrl.InsertColumn(i, &lvc);
 	}
 
-	std::string strPathName{ "E:\\zd_zszq\\vipdoc\\sh\\lday\\" };
-	strPathName += m_strIndexFileName;
-
-	if (m_vecSocket.size() > 0)
-		m_vecSocket.clear();
-
-	std::ifstream file(strPathName.c_str(), std::ios::binary);
-	if (file.bad())
-	{
-		CString strError = L"Can't read file " + CString(strPathName.c_str());
-		MessageBox(strError);
-		return;
-	}
-
-	UINT nBytesRead = 0;
-	UINT nDataSize = sizeof(CStockPrice);
-	while (!file.eof())
-	{
-		CStockPrice curIndexPrice;
-		file.read((char*)&curIndexPrice, nDataSize);
-		if (file.gcount() != nDataSize)
-			break;
-		m_vecSocket.push_back(curIndexPrice);
-	}
-
-	file.close();
-
 	concurrency::task_group taskgroup;
 
 	taskgroup.run_and_wait([this] {
+		std::string strPathName{ "E:\\zd_zszq\\vipdoc\\sh\\lday\\" };
+		strPathName += m_strIndexFileName;
+
+		if (m_vecSocket.size() > 0)
+			m_vecSocket.clear();
+
+		std::ifstream file(strPathName.c_str(), std::ios::binary);
+		if (file.bad())
+		{
+			CString strError = L"Can't read file " + CString(strPathName.c_str());
+			MessageBox(strError);
+			return;
+		}
+
+		UINT nBytesRead = 0;
+		UINT nDataSize = sizeof(CStockPrice);
+		while (!file.eof())
+		{
+			CStockPrice curIndexPrice;
+			file.read((char*)&curIndexPrice, nDataSize);
+			if (file.gcount() != nDataSize)
+				break;
+			m_vecSocket.push_back(curIndexPrice);
+		}
+
+		file.close();
+
 		size_t i = m_vecSocket.size();
 		CListCtrl& ListCtrl = GetListCtrl();
 		UINT nIndex = 0;
@@ -184,59 +192,84 @@ void COptionAnalysisBaseView::OnInitialUpdate()
 			lvItem.lParam = nIndex;
 			lvItem.iItem = nIndex++;
 			lvItem.mask = LVIF_TEXT | LVIF_PARAM;
-			swprintf(buff, 32, L"%d", curPrice.m_nDate);
+			_stprintf_s(buff, 32, L"%d", curPrice.m_nDate);
 			lvItem.pszText = buff;
 			lvItem.iSubItem = 0;
 			ListCtrl.InsertItem(&lvItem);
 
 			lvItem.iSubItem = 1;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.3f", ((double)curPrice.m_nClose) / 1000.00);
+			_stprintf_s(buff, 8, L"%0.3f", ((double)curPrice.m_nClose) / 1000.00);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 2;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.3f", ((double)m_vecSocket[i - 1].m_nClose) / 1000.00);
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)m_vecSocket[i].m_nClose) / m_vecSocket[i - 1].m_nClose - 1) * 100);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 3;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.3f", ((double)m_vecSocket[i - 2].m_nClose) / 1000.00);
+			_stprintf_s(buff, 8, L"%0.3f", ((double)m_vecSocket[i - 1].m_nClose) / 1000.00);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 4;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.3f", ((double)m_vecSocket[i - 3].m_nClose) / 1000.00);
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)m_vecSocket[i - 1].m_nClose) / m_vecSocket[i - 2].m_nClose - 1) * 100);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 5;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.3f", ((double)m_vecSocket[i - 4].m_nClose) / 1000.00);
+			_stprintf_s(buff, 8, L"%0.3f", ((double)m_vecSocket[i - 2].m_nClose) / 1000.00);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 6;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 1].m_nClose - 1) * 100);
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)m_vecSocket[i - 2].m_nClose) / m_vecSocket[i - 3].m_nClose - 1) * 100);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 7;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 2].m_nClose - 1) * 100);
+			_stprintf_s(buff, 8, L"%0.3f", ((double)m_vecSocket[i - 3].m_nClose) / 1000.00);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 8;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 3].m_nClose - 1) * 100);
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)m_vecSocket[i - 3].m_nClose) / m_vecSocket[i - 4].m_nClose - 1) * 100);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 9;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 4].m_nClose - 1) * 100);
+			_stprintf_s(buff, 8, L"%0.3f", ((double)m_vecSocket[i - 4].m_nClose) / 1000.00);
 			ListCtrl.SetItem(&lvItem);
 
 			lvItem.iSubItem = 10;
 			lvItem.mask = LVIF_TEXT;
-			swprintf(buff, 7, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 5].m_nClose - 1) * 100);
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)m_vecSocket[i - 4].m_nClose) / m_vecSocket[i - 5].m_nClose - 1) * 100);
+			ListCtrl.SetItem(&lvItem);
+
+			lvItem.iSubItem = 11;
+			lvItem.mask = LVIF_TEXT;
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 1].m_nClose - 1) * 100);
+			ListCtrl.SetItem(&lvItem);
+
+			lvItem.iSubItem = 12;
+			lvItem.mask = LVIF_TEXT;
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 2].m_nClose - 1) * 100);
+			ListCtrl.SetItem(&lvItem);
+
+			lvItem.iSubItem = 13;
+			lvItem.mask = LVIF_TEXT;
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 3].m_nClose - 1) * 100);
+			ListCtrl.SetItem(&lvItem);
+
+			lvItem.iSubItem = 14;
+			lvItem.mask = LVIF_TEXT;
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 4].m_nClose - 1) * 100);
+			ListCtrl.SetItem(&lvItem);
+
+			lvItem.iSubItem = 15;
+			lvItem.mask = LVIF_TEXT;
+			_stprintf_s(buff, 8, L"%0.2f%%", (((double)curPrice.m_nClose) / m_vecSocket[i - 5].m_nClose - 1) * 100);
 			ListCtrl.SetItem(&lvItem);
 
 			i -= 4;
@@ -253,3 +286,13 @@ IMPLEMENT_DYNCREATE(C510300OptionView, COptionAnalysisBaseView)
 
 BEGIN_MESSAGE_MAP(C510300OptionView, COptionAnalysisBaseView)
 END_MESSAGE_MAP()
+
+
+void COptionAnalysisBaseView::OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLVGETINFOTIP pGetInfoTip = reinterpret_cast<LPNMLVGETINFOTIP>(pNMHDR);
+
+	_stprintf_s(pGetInfoTip->pszText, 16, L"Item %d", pGetInfoTip->iItem + 1);
+
+	*pResult = 0;
+}

@@ -33,7 +33,7 @@
     <ClInclude Include="InvestmentAnalysisDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InvestmentAnalysisView.h">
+    <ClInclude Include="TransactionRecordView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -43,6 +43,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OptionAnalysisView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionSummariesView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortableListView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,13 +65,19 @@
     <ClCompile Include="InvestmentAnalysisDoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InvestmentAnalysisView.cpp">
+    <ClCompile Include="TransactionRecordView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OptionAnalysisView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionSummariesView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortableListView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

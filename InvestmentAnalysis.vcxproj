@@ -184,10 +184,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="SortableListView.h" />
+    <ClInclude Include="TransactionSummariesView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="InvestmentAnalysis.h" />
     <ClInclude Include="InvestmentAnalysisDoc.h" />
-    <ClInclude Include="InvestmentAnalysisView.h" />
+    <ClInclude Include="TransactionRecordView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OptionAnalysisView.h" />
     <ClInclude Include="pch.h" />
@@ -196,9 +198,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="SortableListView.cpp" />
+    <ClCompile Include="TransactionSummariesView.cpp" />
     <ClCompile Include="InvestmentAnalysis.cpp" />
     <ClCompile Include="InvestmentAnalysisDoc.cpp" />
-    <ClCompile Include="InvestmentAnalysisView.cpp" />
+    <ClCompile Include="TransactionRecordView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OptionAnalysisView.cpp" />
     <ClCompile Include="pch.cpp">

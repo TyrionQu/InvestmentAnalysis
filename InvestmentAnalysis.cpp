@@ -22,6 +22,7 @@
 #include "ChildFrm.h"
 #include "InvestmentAnalysisDoc.h"
 #include "OptionAnalysisView.h"
+#include "TransactionRecordView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -121,6 +122,15 @@ BOOL CInvestmentAnalysisApp::InitInstance()
 	// Register the application's document templates.  Document templates
 	//  serve as the connection between documents, frame windows and views
 	CMultiDocTemplate* pDocTemplate;
+	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
+		RUNTIME_CLASS(CInvestmentAnalysisDoc),
+		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
+		RUNTIME_CLASS(CTransactionRecordView));
+	if (!pDocTemplate)
+		return FALSE;
+	m_pDocTemplateTrading = pDocTemplate;
+	AddDocTemplate(pDocTemplate);
+
 	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
 		RUNTIME_CLASS(CInvestmentAnalysisDoc),
 		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
