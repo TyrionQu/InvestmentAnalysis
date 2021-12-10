@@ -14,8 +14,10 @@
 
 #pragma once
 
+#include "SortableListView.h"
 
-class CTransactionRecordView : public CListView
+
+class CTransactionRecordView : public CSortableListView
 {
 protected: // create from serialization only
 	CTransactionRecordView() noexcept;

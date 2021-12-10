@@ -183,7 +183,11 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddTradingRecordsBox.h" />
+    <ClInclude Include="AddSecuritiesBox.h" />
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="DBTableClass.h" />
+    <ClInclude Include="DigitalEdit.h" />
     <ClInclude Include="SortableListView.h" />
     <ClInclude Include="TransactionSummariesView.h" />
     <ClInclude Include="framework.h" />
@@ -197,7 +201,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddTradingRecordsBox.cpp" />
+    <ClCompile Include="AddSecuritiesBox.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="DBTableClass.cpp" />
+    <ClCompile Include="DigitalEdit.cpp" />
     <ClCompile Include="SortableListView.cpp" />
     <ClCompile Include="TransactionSummariesView.cpp" />
     <ClCompile Include="InvestmentAnalysis.cpp" />

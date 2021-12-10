@@ -12,6 +12,12 @@
 
 #include <vector>
 #include <string>
+#include <thread>
+#include <functional>
+
+#include <ppl.h>
+
+#include "DBTableClass.h"
 
 struct CStockPrice
 {

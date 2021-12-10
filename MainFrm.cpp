@@ -18,6 +18,9 @@
 
 #include "MainFrm.h"
 
+#include "AddSecuritiesBox.h"
+#include "AddTradingRecordsBox.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -31,6 +34,9 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_COMMAND(ID_WINDOW_MANAGER, &CMainFrame::OnWindowManager)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
+	ON_COMMAND(ID_TOOLS_CHECKDB, &CMainFrame::OnCheckdb)
+	ON_COMMAND(ID_TOOLS_ADD_SECURITIES, &CMainFrame::OnAddSecurities)
+	ON_COMMAND(ID_TOOLS_ADD_TRADING, &CMainFrame::OnAddTrading)
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction
@@ -236,4 +242,30 @@ bool CMainFrame::SwitchView(CRuntimeClass* targetView)
 		}
 	}
 	return false;
+}
+
+
+void CMainFrame::OnCheckdb()
+{
+#if 0
+	CString strCmd(L"UPDATE TradingRecordTable SET SecurityType=3 WHERE SecurityType=10");
+	HRESULT hr = UpdateDatabaseTable<CTradingRecordTable>(strCmd);
+
+	if (FAILED(hr))
+		MessageBox(L"Update failed!");
+#endif
+}
+
+
+void CMainFrame::OnAddSecurities()
+{
+	CAddSecuritiesBox box;
+	box.DoModal();
+}
+
+
+void CMainFrame::OnAddTrading()
+{
+	CAddTradingRecordsBox box;
+	box.DoModal();
 }

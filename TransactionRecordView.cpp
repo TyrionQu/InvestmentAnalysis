@@ -23,6 +23,8 @@
 #include "InvestmentAnalysisDoc.h"
 #include "TransactionRecordView.h"
 
+#include "ChildFrm.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -54,7 +56,7 @@ BOOL CTransactionRecordView::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return CListView::PreCreateWindow(cs);
+	return CSortableListView::PreCreateWindow(cs);
 }
 
 // CTransactionRecordView drawing
@@ -120,7 +122,7 @@ void CTransactionRecordView::OnInitialUpdate()
 
 	LV_COLUMN  lvc;
 	TCHAR* arrTitle[] = { L"股票名称", L"股票代码", L"买入均价", L"买入数目", L"卖出均价", L"卖出数目", L"买卖次数", L"买卖盈亏" };
-	UCHAR      nWidth[] = { 100, 100, 100, 100, 100, 100, 100, 120 };
+	UCHAR      nWidth[] = { 160, 100, 100, 100, 100, 100, 100, 140 };
 	USHORT     nFMT[] = { LVCFMT_CENTER, LVCFMT_CENTER, LVCFMT_RIGHT, LVCFMT_RIGHT, LVCFMT_RIGHT, LVCFMT_RIGHT, LVCFMT_CENTER, LVCFMT_RIGHT };
 
 	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
@@ -132,5 +134,57 @@ void CTransactionRecordView::OnInitialUpdate()
 		lvc.cx = nWidth[i];
 		lvc.fmt = nFMT[i];
 		ListCtrl.InsertColumn(i, &lvc);
+	}
+
+	CChildFrame* pChild = (CChildFrame*)GetParentFrame();
+
+	LV_ITEM  lvItem;
+	int      nIndex = 0;
+	TCHAR    buff[32];
+	for (auto record : pChild->m_tradingRecords)
+	{
+		lvItem.mask = LVIF_TEXT | LVIF_PARAM;
+		lvItem.lParam = nIndex;
+		lvItem.iItem = nIndex++;
+		_stprintf_s(buff, 32, L"%s", record.second->m_strStockName);
+		lvItem.pszText = buff;
+		lvItem.iSubItem = 0;
+		ListCtrl.InsertItem(&lvItem);
+
+		lvItem.iSubItem = 1;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%06d", record.first);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 2;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%6.3lf", (-1) * record.second->m_nBuyAmount / record.second->m_nBuyVolume);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 3;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%8d", record.second->m_nBuyVolume);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 4;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%6.3lf", (record.second->m_nSoldAmount) ? ((-1) * record.second->m_nSoldAmount / record.second->m_nSoldVolume) : 0);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 5;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%8d", (-1) * record.second->m_nSoldVolume);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 6;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%d/%d", record.second->m_nBuyCount, record.second->m_nSellCount);
+		ListCtrl.SetItem(&lvItem);
+
+		lvItem.iSubItem = 7;
+		lvItem.mask = LVIF_TEXT;
+		_stprintf_s(buff, 32, L"%12.2lf", record.second->m_nBuyAmount + record.second->m_nSoldAmount);
+		ListCtrl.SetItem(&lvItem);
+
 	}
 }

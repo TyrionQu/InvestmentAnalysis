@@ -14,6 +14,19 @@
 
 #pragma once
 
+#include <map>
+
+struct CTradingRecord
+{
+	TCHAR   m_strStockName[32] = {0};
+	double  m_nBuyAmount;
+	LONG	m_nBuyVolume;
+	LONG	m_nSoldVolume;
+	double	m_nSoldAmount;
+	LONG	m_nSellCount;
+	LONG	m_nBuyCount;
+};
+
 class CChildFrame : public CMDIChildWndEx
 {
 	DECLARE_DYNCREATE(CChildFrame)
@@ -30,6 +43,8 @@ public:
 
 // Overrides
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+
+	std::map<LONG, std::shared_ptr<CTradingRecord> > m_tradingRecords; // map<code, CTradingRecord>
 
 // Implementation
 public:

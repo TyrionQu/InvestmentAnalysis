@@ -91,6 +91,20 @@ BOOL CInvestmentAnalysisApp::InitInstance()
 		return FALSE;
 	}
 
+	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+	if (FAILED(hr))
+	{
+		AfxMessageBox(IDS_COM_INIT_FAILED);
+		return FALSE;
+	}
+
+	hr = OpenDatabase();
+	if (FAILED(hr))
+	{
+		AfxMessageBox(IDS_OPENDB_FAILED);
+		return FALSE;
+	}
+
 	AfxEnableControlContainer();
 
 	EnableTaskbarInteraction();
@@ -178,7 +192,9 @@ BOOL CInvestmentAnalysisApp::InitInstance()
 
 int CInvestmentAnalysisApp::ExitInstance()
 {
-	//TODO: handle additional resources you may have added
+	CloseDatabase();
+	CoUninitialize();
+
 	AfxOleTerm(FALSE);
 
 	return CWinAppEx::ExitInstance();

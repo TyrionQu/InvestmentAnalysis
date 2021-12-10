@@ -32,7 +32,6 @@ private:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult);
 	virtual void OnInitialUpdate();
 	afx_msg void OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult);
 };
