@@ -35,7 +35,7 @@ private:
 	double m_nStockPrice;
 	double m_nCommission;
 	double m_nStampTax;
-	UINT m_nStockAmount;
+	int  m_nStockAmount;
 	double m_nMinSoldPrice;
 	double m_nExchangeMoney;
 	double m_nBalance;
@@ -47,4 +47,6 @@ public:
 	afx_msg void OnEnKillfocusEditStockcode();
 	afx_msg void OnClickedBtnNext();
 	afx_msg void OnBnClickedOk();
+	COleDateTime m_TradingDate;
+	afx_msg void OnEnKillfocusEditSecurity();
 };

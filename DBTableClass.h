@@ -120,6 +120,7 @@ HRESULT GetTableTopLine(CString strCommand, T* pResult, int nCol = 1)
 			case DBTYPE_I8:
 			case DBTYPE_UI8:
 			case DBTYPE_NUMERIC:
+			case DBTYPE_DATE:
 				rs.GetValue(rs.GetColumnName(nCol), pResult);
 				break;
 			case DBTYPE_STR:
@@ -148,7 +149,7 @@ HRESULT GetTableTopLine(CString strCommand, T* pResult, int nCol = 1)
 }
 
 template <class TAccessor>
-HRESULT RetrieveData(CString strCommand, std::function<void(int n, CCommand<CAccessor<TAccessor> >& DBTable)> const& callback, std::function<void()> final_callback)
+HRESULT RetrieveData(CString strCommand, std::function<void(int n, CCommand<CAccessor<TAccessor> >& DBTable)> const& callback, std::function<void(int n)> final_callback)
 {
 	CCommand<CAccessor<TAccessor> > DBTable;
 	CSession    session;
@@ -180,7 +181,7 @@ HRESULT RetrieveData(CString strCommand, std::function<void(int n, CCommand<CAcc
 	DBTable.ReleaseCommand();
 	session.Close();
 
-	final_callback();
+	final_callback(index);
 
 	return S_OK;
 }

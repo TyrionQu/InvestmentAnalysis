@@ -55,7 +55,7 @@ BOOL CAddSecuritiesBox::OnInitDialog()
 		m_comboSecuritiesType.InsertString(n, DBTable.m_SecuritiesType);
 	};
 
-	std::function<void()> final_callback = [&]()
+	std::function<void(int n)> final_callback = [&](int n)
 	{
 		m_comboSecuritiesType.SetCurSel(0);
 	};
@@ -114,9 +114,12 @@ HRESULT CAddSecuritiesBox::AddNewSecurity()
 		securitiesTableName = "CNFundTable";
 		break;
 	case 3:
-		securitiesTableName = "HKStockTable";
+		securitiesTableName = "CNOptionTable";
 		break;
 	case 4:
+		securitiesTableName = "HKStockTable";
+		break;
+	case 5:
 		securitiesTableName = "TerminatedSecuritiesTable";
 		break;
 	default:

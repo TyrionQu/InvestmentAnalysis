@@ -16,17 +16,6 @@
 
 #include <map>
 
-struct CTradingRecord
-{
-	TCHAR   m_strStockName[32] = {0};
-	double  m_nBuyAmount;
-	LONG	m_nBuyVolume;
-	LONG	m_nSoldVolume;
-	double	m_nSoldAmount;
-	LONG	m_nSellCount;
-	LONG	m_nBuyCount;
-};
-
 class CChildFrame : public CMDIChildWndEx
 {
 	DECLARE_DYNCREATE(CChildFrame)
@@ -35,8 +24,16 @@ public:
 
 // Attributes
 protected:
-	CSplitterWndEx m_wndSplitter;
+	CSplitterWndEx m_wndLeftSplitter;
+	CSplitterWndEx m_wndRightSplitter;
 public:
+	double m_nWithdraw{ 0 };
+	double m_nDeposit{ 0 };
+	double m_nInterest{ 0 };
+	double m_nInterestTax{ 0 };
+	double m_nBalance{ 0 };
+	double m_nProfit{ 0 };
+	COleDateTime m_ClosingDate;
 
 // Operations
 public:
@@ -44,7 +41,7 @@ public:
 // Overrides
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
-	std::map<LONG, std::shared_ptr<CTradingRecord> > m_tradingRecords; // map<code, CTradingRecord>
+	std::map<security_id, std::shared_ptr<CTradingRecord> > m_tradingRecords; // map<(code, type), CTradingRecord>
 
 // Implementation
 public:
@@ -58,4 +55,6 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+public:
+	CWnd* GetSubWindow(int nRow, int nCol);
 };

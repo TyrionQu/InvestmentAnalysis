@@ -187,6 +187,7 @@
     <ClInclude Include="AddSecuritiesBox.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="DBTableClass.h" />
+    <ClInclude Include="DetailedTradingView.h" />
     <ClInclude Include="DigitalEdit.h" />
     <ClInclude Include="SortableListView.h" />
     <ClInclude Include="TransactionSummariesView.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="AddSecuritiesBox.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="DBTableClass.cpp" />
+    <ClCompile Include="DetailedTradingView.cpp" />
     <ClCompile Include="DigitalEdit.cpp" />
     <ClCompile Include="SortableListView.cpp" />
     <ClCompile Include="TransactionSummariesView.cpp" />

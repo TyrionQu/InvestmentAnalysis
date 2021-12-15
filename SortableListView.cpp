@@ -21,7 +21,6 @@ CSortableListView::~CSortableListView()
 
 BEGIN_MESSAGE_MAP(CSortableListView, CListView)
 	ON_NOTIFY_REFLECT(LVN_COLUMNCLICK, &CSortableListView::OnLvnColumnclick)
-	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, &CSortableListView::OnNMCustomdraw)
 END_MESSAGE_MAP()
 
 
@@ -60,12 +59,12 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 	strItem2.TrimRight('%');
 	int x1, x2;
 	if (nCol == 0) {
-		x1 = _ttoi(strItem1.GetBuffer());
-		x2 = _ttoi(strItem2.GetBuffer());
+		x1 = _ttoi(strItem1.GetString());
+		x2 = _ttoi(strItem2.GetString());
 	}
 	else {
-		x1 = _ttof(strItem1.GetBuffer()) * 1000;
-		x2 = _ttof(strItem2.GetBuffer()) * 1000;
+		x1 = int(_ttof(strItem1.GetString()) * 1000);
+		x2 = int(_ttof(strItem2.GetString()) * 1000);
 	}
 
 	int result = 0;
@@ -105,53 +104,4 @@ void CSortableListView::OnLvnColumnclick(NMHDR* pNMHDR, LRESULT* pResult)
 	lc->SortItemsEx(CompareFunc, (LPARAM)&sortParams);
 
 	*pResult = 0;
-}
-
-
-void CSortableListView::OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	NMLVCUSTOMDRAW* pLVCD = reinterpret_cast<NMLVCUSTOMDRAW*>(pNMHDR);
-	*pResult = CDRF_DODEFAULT;
-	switch (pLVCD->nmcd.dwDrawStage) {
-	case CDDS_PREPAINT:
-		*pResult = CDRF_NOTIFYITEMDRAW;
-		break;
-	case CDDS_ITEMPREPAINT:
-		if (1 == pLVCD->nmcd.dwItemSpec % 2) {
-			pLVCD->clrTextBk = RGB(192, 192, 192);
-		}
-		*pResult = CDRF_NOTIFYSUBITEMDRAW;
-		break;
-	case CDDS_ITEMPREPAINT | CDDS_SUBITEM:
-		if (pLVCD->iSubItem > 10) {
-			if (1 == pLVCD->nmcd.dwItemSpec % 2) {
-				pLVCD->clrText = RGB(255, 0, 255);
-			}
-			else {
-				pLVCD->clrText = RGB(0, 0, 255);
-			}
-		}
-		else {
-			if (pLVCD->iSubItem % 2) {
-				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
-					pLVCD->clrText = RGB(128, 0, 0);
-				}
-				else {
-					pLVCD->clrText = RGB(255, 0, 0);
-				}
-			}
-			else {
-				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
-					pLVCD->clrText = RGB(0, 0, 255);
-				}
-				else {
-					pLVCD->clrText = RGB(0, 0, 0);
-				}
-			}
-		}
-		break;
-	default:
-		break;
-	}
 }

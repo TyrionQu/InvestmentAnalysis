@@ -17,7 +17,7 @@
 #include "SortableListView.h"
 
 
-class CTransactionRecordView : public CSortableListView
+class CTransactionRecordView : public CListView
 {
 protected: // create from serialization only
 	CTransactionRecordView() noexcept;
@@ -25,6 +25,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
+	const CString m_nOptionMark = L"*";
 	CInvestmentAnalysisDoc* GetDocument() const;
 
 // Operations
@@ -35,6 +36,9 @@ public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
+	CString m_strSecurityCode;
+	LONG    m_nCurrentSortedColumn{ -1 };
+	LONG    m_nCurrtentSortedType{ 0 };
 
 // Implementation
 public:
@@ -54,6 +58,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual void OnInitialUpdate();
+	afx_msg void OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnLvnColumnclick(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMClick(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 #ifndef _DEBUG  // debug version in InvestmentAnalysisView.cpp

@@ -49,7 +49,6 @@
 #define IDC_EDIT_STOCKPRICE             1020
 #define IDC_EXCHANGE_DATE               1022
 #define IDC_EDIT_EXCHANGEFEE            1023
-#define IDC_EDIT_                       1023
 #define IDC_EDIT_COMMISSION             1023
 #define IDC_EDIT_EXCHANGEMONEY          1025
 #define IDC_EDIT_ACCOUNTMONEY           1026
@@ -65,13 +64,15 @@
 #define ID_BUTTON3                      32773
 #define ID_TOOLS_ADD_SECURITIES         32774
 #define ID_TOOLS_ADD_TRADING            32775
+#define ID_TOOLS_REFRESHING             32776
+#define ID_TOOLS_RELOAD                 32776
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        319
-#define _APS_NEXT_COMMAND_VALUE         32776
+#define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

@@ -34,6 +34,7 @@ protected:
 public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 class C510050OptionView : public COptionAnalysisBaseView

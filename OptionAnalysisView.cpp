@@ -27,6 +27,7 @@ COptionAnalysisBaseView::~COptionAnalysisBaseView()
 
 BEGIN_MESSAGE_MAP(COptionAnalysisBaseView, CSortableListView)
 	ON_NOTIFY_REFLECT(LVN_GETINFOTIP, &COptionAnalysisBaseView::OnLvnGetInfoTip)
+	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, &COptionAnalysisBaseView::OnNMCustomdraw)
 END_MESSAGE_MAP()
 
 
@@ -241,7 +242,56 @@ void COptionAnalysisBaseView::OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMLVGETINFOTIP pGetInfoTip = reinterpret_cast<LPNMLVGETINFOTIP>(pNMHDR);
 
-	_stprintf_s(pGetInfoTip->pszText, 16, L"Item %d", pGetInfoTip->iItem + 1);
+	_stprintf_s(pGetInfoTip->pszText, 16, L"%d", pGetInfoTip->iItem + 1);
 
 	*pResult = 0;
+}
+
+
+void COptionAnalysisBaseView::OnNMCustomdraw(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	NMLVCUSTOMDRAW* pLVCD = reinterpret_cast<NMLVCUSTOMDRAW*>(pNMHDR);
+	*pResult = CDRF_DODEFAULT;
+	switch (pLVCD->nmcd.dwDrawStage) {
+	case CDDS_PREPAINT:
+		*pResult = CDRF_NOTIFYITEMDRAW;
+		break;
+	case CDDS_ITEMPREPAINT:
+		if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+			pLVCD->clrTextBk = RGB(192, 192, 192);
+		}
+		*pResult = CDRF_NOTIFYSUBITEMDRAW;
+		break;
+	case CDDS_ITEMPREPAINT | CDDS_SUBITEM:
+		if (pLVCD->iSubItem > 10) {
+			if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+				pLVCD->clrText = RGB(255, 0, 255);
+			}
+			else {
+				pLVCD->clrText = RGB(0, 0, 255);
+			}
+		}
+		else {
+			if (pLVCD->iSubItem % 2) {
+				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+					pLVCD->clrText = RGB(128, 0, 0);
+				}
+				else {
+					pLVCD->clrText = RGB(255, 0, 0);
+				}
+			}
+			else {
+				if (1 == pLVCD->nmcd.dwItemSpec % 2) {
+					pLVCD->clrText = RGB(0, 0, 255);
+				}
+				else {
+					pLVCD->clrText = RGB(0, 0, 0);
+				}
+			}
+		}
+		break;
+	default:
+		break;
+	}
 }

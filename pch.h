@@ -31,5 +31,31 @@ struct CStockPrice
 	float x;
 };
 
+struct CTradingRecord
+{
+	TCHAR   m_strStockName[32] = { 0 };
+	double  m_nBuyAmount;
+	LONG	m_nBuyVolume;
+	LONG	m_nSoldVolume;
+	double	m_nSoldAmount;
+	LONG	m_nSellCount;
+	LONG	m_nBuyCount;
+};
+
+struct security_id
+{
+	LONG m_nSecurityCode;
+	BYTE m_nSecurityType;
+
+	security_id(LONG nSecurityCode, BYTE nSecurityType) : m_nSecurityCode(nSecurityCode), m_nSecurityType(nSecurityType) {}
+
+	bool operator<(const security_id& rhs) const
+	{
+		if (m_nSecurityCode < rhs.m_nSecurityCode) return false;
+		if (m_nSecurityCode > rhs.m_nSecurityCode) return true;
+		return m_nSecurityType < rhs.m_nSecurityType;
+	}
+};
+
 
 #endif //PCH_H
