@@ -53,7 +53,7 @@ void CDetailedTradingView::OnInitialUpdate()
 	ListCtrl.SetExtendedStyle(dwStyle | LVS_EX_INFOTIP | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_LABELTIP);
 
 	LV_COLUMN  lvc;
-	TCHAR* arrTitle[] = { L"交易日期", L"交易价格", L"交易数目", L"成交金额", L"backup"};
+	TCHAR* arrTitle[] = { L"交易日期", L"交易价格", L"交易数目", L"成交金额", L"备注信息"};
 	UCHAR  nWidth[] = { 120, 160, 160, 160, 250 };
 	USHORT nFMT[] = { LVCFMT_LEFT, LVCFMT_RIGHT, LVCFMT_RIGHT, LVCFMT_RIGHT, LVCFMT_CENTER };
 

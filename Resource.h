@@ -40,6 +40,15 @@
 #define IDR_RIBBON                      307
 #define IDD_TRADINGBOX                  310
 #define IDD_BASICINFOBOX                312
+#define IDD_INTEREST_BOX                319
+#define IDC_BTN_CALCULATE_RATE          1000
+#define IDC_EDIT_COUPON_RATE            1002
+#define IDC_EDIT_TAX_RATE               1003
+#define IDC_MATURITY_DATE               1004
+#define IDC_EDIT_CURRENT_VALUE          1005
+#define IDC_EDIT_YEAR_RATES             1006
+#define IDC_EDIT_REAL_RATE              1007
+#define IDC_EDIT1                       1008
 #define IDC_COMBO_EXCHANGETYPE          1015
 #define IDC_COMBO_MARKETNAME            1016
 #define IDC_EDIT_STOCKCODE              1017
@@ -62,6 +71,7 @@
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_TOOLS_CHECKDB                32771
 #define ID_BUTTON3                      32773
+#define ID_BTN_CALCULATE_RATE           32773
 #define ID_TOOLS_ADD_SECURITIES         32774
 #define ID_TOOLS_ADD_TRADING            32775
 #define ID_TOOLS_REFRESHING             32776
@@ -71,9 +81,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        319
-#define _APS_NEXT_COMMAND_VALUE         32777
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_RESOURCE_VALUE        321
+#define _APS_NEXT_COMMAND_VALUE         32778
+#define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

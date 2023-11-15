@@ -163,6 +163,24 @@ BOOL CInvestmentAnalysisApp::InitInstance()
 	m_pDocTemplate510300 = pDocTemplate;
 	AddDocTemplate(pDocTemplate);
 
+	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
+		RUNTIME_CLASS(CInvestmentAnalysisDoc),
+		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
+		RUNTIME_CLASS(C159915OptionView));
+	if (!pDocTemplate)
+		return FALSE;
+	m_pDocTemplate159915 = pDocTemplate;
+	AddDocTemplate(pDocTemplate);
+
+	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
+		RUNTIME_CLASS(CInvestmentAnalysisDoc),
+		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
+		RUNTIME_CLASS(C399905OptionView));
+	if (!pDocTemplate)
+		return FALSE;
+	m_pDocTemplate399905 = pDocTemplate;
+	AddDocTemplate(pDocTemplate);
+
 	// create main MDI Frame window
 	CMainFrame* pMainFrame = new CMainFrame;
 	if (!pMainFrame || !pMainFrame->LoadFrame(IDR_MAINFRAME))

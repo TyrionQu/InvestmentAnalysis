@@ -20,6 +20,7 @@
 
 #include "AddSecuritiesBox.h"
 #include "AddTradingRecordsBox.h"
+#include "CalculateRealRate.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -37,6 +38,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_COMMAND(ID_TOOLS_CHECKDB, &CMainFrame::OnCheckdb)
 	ON_COMMAND(ID_TOOLS_ADD_SECURITIES, &CMainFrame::OnAddSecurities)
 	ON_COMMAND(ID_TOOLS_ADD_TRADING, &CMainFrame::OnAddTrading)
+	ON_COMMAND(ID_BTN_CALCULATE_RATE, &CMainFrame::OnBtnCalculateRate)
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction
@@ -247,6 +249,7 @@ bool CMainFrame::SwitchView(CRuntimeClass* targetView)
 
 void CMainFrame::OnCheckdb()
 {
+	MessageBox(L"Test Function!");
 #if 0
 	CString strCmd(L"UPDATE TradingRecordTable SET SecurityType=3 WHERE SecurityType=10");
 	HRESULT hr = UpdateDatabaseTable<CTradingRecordTable>(strCmd);
@@ -267,5 +270,12 @@ void CMainFrame::OnAddSecurities()
 void CMainFrame::OnAddTrading()
 {
 	CAddTradingRecordsBox box;
+	box.DoModal();
+}
+
+
+void CMainFrame::OnBtnCalculateRate()
+{
+	CCalculateRealRate box;
 	box.DoModal();
 }

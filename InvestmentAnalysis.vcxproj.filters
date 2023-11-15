@@ -66,6 +66,9 @@
     <ClInclude Include="DetailedTradingView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CalculateRealRate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InvestmentAnalysis.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DetailedTradingView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculateRealRate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -39,6 +39,8 @@ public:
 	UINT  m_nAppLook;
 	CMultiDocTemplate* m_pDocTemplate510050{ nullptr };
 	CMultiDocTemplate* m_pDocTemplate510300{ nullptr };
+	CMultiDocTemplate* m_pDocTemplate159915{ nullptr };
+	CMultiDocTemplate* m_pDocTemplate399905{ nullptr };
 	CMultiDocTemplate* m_pDocTemplateTrading{ nullptr };
 	virtual void PreLoadState();
 	virtual void LoadCustomState();

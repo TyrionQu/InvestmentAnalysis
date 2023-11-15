@@ -53,7 +53,7 @@ void CAddTradingRecordsBox::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_STAMPTAX, m_nStampTax);
 	DDV_MinMaxDouble(pDX, m_nStampTax, 0, 0.1);
 	DDX_Text(pDX, IDC_EDIT_STOCKAMOUNT, m_nStockAmount);
-	DDV_MinMaxUInt(pDX, m_nStockAmount, 1, 1000000);
+	DDV_MinMaxUInt(pDX, m_nStockAmount, 0, 1000000);
 	DDX_Text(pDX, IDC_EDIT_MINSOLDPRICE, m_nMinSoldPrice);
 	DDX_Text(pDX, IDC_EDIT_EXCHANGEMONEY, m_nExchangeMoney);
 	DDX_Text(pDX, IDC_EDIT_ACCOUNTMONEY, m_nBalance);
@@ -350,7 +350,7 @@ HRESULT CAddTradingRecordsBox::InsertTradingRecord()
 		nSecurityType = 0;
 		break;
 	case 7: // 银行转取
-		strType.Format(L"利税代扣");
+		strType.Format(L"银行转取");
 		nExchangeMoney = -m_nExchangeMoney;
 		m_nStockCode = 0;
 		m_nStockPrice = 0;

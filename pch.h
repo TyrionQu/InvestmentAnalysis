@@ -22,13 +22,36 @@
 struct CStockPrice
 {
 	int m_nDate;
-	int m_nOpen;
-	int m_nHigh;
-	int m_nLow;
+	int m_nOpen{ 0 };
+	int m_nHigh{ 0 };
+	int m_nLow{ MAXINT };
 	int m_nClose;
-	float m_nAmount; // total money
-	int m_nVolume; // volumn
-	float x;
+	float m_nAmount{ 0.0 }; // total money
+	int m_nVolume{ 0 }; // volumn
+	float x {0.0};
+
+	void update(const CStockPrice& rhs)
+	{
+		if (m_nOpen == 0)
+			m_nOpen = rhs.m_nOpen;
+		if (m_nHigh < rhs.m_nHigh)
+			m_nHigh = rhs.m_nHigh;
+		if (m_nLow > rhs.m_nLow)
+			m_nLow = rhs.m_nLow;
+		m_nClose = rhs.m_nClose;
+		if (x == 0.0)
+			x = rhs.x;
+	}
+
+	void reset()
+	{
+		m_nOpen = 0;
+		m_nHigh = 0;
+		m_nLow = MAXINT;
+		m_nAmount = 0.0;
+		m_nVolume = 0;
+		x = 0.0;
+	}
 };
 
 struct CTradingRecord
