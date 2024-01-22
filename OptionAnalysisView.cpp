@@ -252,7 +252,7 @@ void COptionAnalysisBaseView::OnInitialUpdate()
 			unfilled = false;
 		}
 
-		if (unfilled)
+		if (unfilled && m_vecStock.size() > 0)
 			FillListView(m_vecStock.back());
 	});
 }
