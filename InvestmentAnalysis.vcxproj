@@ -186,6 +186,7 @@
     <ClInclude Include="AddTradingRecordsBox.h" />
     <ClInclude Include="AddSecuritiesBox.h" />
     <ClInclude Include="CalculateRealRate.h" />
+    <ClInclude Include="FundArbitrageView.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="DBTableClass.h" />
     <ClInclude Include="DetailedTradingView.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="AddTradingRecordsBox.cpp" />
     <ClCompile Include="AddSecuritiesBox.cpp" />
     <ClCompile Include="CalculateRealRate.cpp" />
+    <ClCompile Include="FundArbitrageView.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="DBTableClass.cpp" />
     <ClCompile Include="DetailedTradingView.cpp" />
@@ -234,6 +236,7 @@
     <Image Include="res\InvestmentAnalysis.ico" />
     <Image Include="res\InvestmentAnalysisDoc.ico" />
     <Image Include="res\main.bmp" />
+    <Image Include="res\operationlarge.png" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\writelarge.bmp" />

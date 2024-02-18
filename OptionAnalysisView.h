@@ -94,3 +94,17 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
+
+class C588000OptionView : public COptionAnalysisBaseView
+{
+	DECLARE_DYNCREATE(C588000OptionView)
+protected:
+	C588000OptionView()
+	{
+		_tcscpy_s(m_strViewTitle, nMaxTitle, _T("科创50期权分析"));
+		m_strIndexFileName = std::string("sh\\lday\\sh688000.day");
+		m_bIndex = true;
+	}
+
+	DECLARE_MESSAGE_MAP()
+};

@@ -69,6 +69,9 @@
     <ClInclude Include="CalculateRealRate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FundArbitrageView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InvestmentAnalysis.cpp">
@@ -116,6 +119,9 @@
     <ClCompile Include="CalculateRealRate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FundArbitrageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="InvestmentAnalysis.rc">
@@ -151,6 +157,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Toolbar256.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\operationlarge.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

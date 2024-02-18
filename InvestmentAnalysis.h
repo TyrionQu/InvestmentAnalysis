@@ -41,7 +41,9 @@ public:
 	CMultiDocTemplate* m_pDocTemplate510300{ nullptr };
 	CMultiDocTemplate* m_pDocTemplate159915{ nullptr };
 	CMultiDocTemplate* m_pDocTemplate399905{ nullptr };
+	CMultiDocTemplate* m_pDocTemplate588000{ nullptr };
 	CMultiDocTemplate* m_pDocTemplateTrading{ nullptr };
+	CMultiDocTemplate* m_pDocTemplateFundArbitrage{ nullptr };
 	virtual void PreLoadState();
 	virtual void LoadCustomState();
 	virtual void SaveCustomState();

@@ -32,7 +32,7 @@ class CSecuritiesTable
 {
 public:
 	LONG  m_SecurityCode;
-	TCHAR m_SecurityName[16];
+	TCHAR m_SecurityName[32];
 
 	BEGIN_COLUMN_MAP(CSecuritiesTable)
 		COLUMN_ENTRY(1, m_SecurityCode)

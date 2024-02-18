@@ -152,7 +152,7 @@ void COptionAnalysisBaseView::OnInitialUpdate()
 	concurrency::task_group taskgroup;
 
 	taskgroup.run_and_wait([&] {
-		std::string strPathName{ "E:\\zd_zszq\\vipdoc\\" };
+		std::string strPathName{ "D:\\zd_zszq\\vipdoc\\" };
 		strPathName += m_strIndexFileName;
 
 		if (m_vecStock.size() > 0)
@@ -275,6 +275,11 @@ END_MESSAGE_MAP()
 IMPLEMENT_DYNCREATE(C399905OptionView, COptionAnalysisBaseView)
 
 BEGIN_MESSAGE_MAP(C399905OptionView, COptionAnalysisBaseView)
+END_MESSAGE_MAP()
+
+IMPLEMENT_DYNCREATE(C588000OptionView, COptionAnalysisBaseView)
+
+BEGIN_MESSAGE_MAP(C588000OptionView, COptionAnalysisBaseView)
 END_MESSAGE_MAP()
 
 void COptionAnalysisBaseView::OnLvnGetInfoTip(NMHDR* pNMHDR, LRESULT* pResult)

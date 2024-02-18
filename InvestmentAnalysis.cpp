@@ -23,6 +23,7 @@
 #include "InvestmentAnalysisDoc.h"
 #include "OptionAnalysisView.h"
 #include "TransactionRecordView.h"
+#include "FundArbitrageView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -179,6 +180,24 @@ BOOL CInvestmentAnalysisApp::InitInstance()
 	if (!pDocTemplate)
 		return FALSE;
 	m_pDocTemplate399905 = pDocTemplate;
+	AddDocTemplate(pDocTemplate);
+
+	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
+		RUNTIME_CLASS(CInvestmentAnalysisDoc),
+		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
+		RUNTIME_CLASS(C588000OptionView));
+	if (!pDocTemplate)
+		return FALSE;
+	m_pDocTemplate588000 = pDocTemplate;
+	AddDocTemplate(pDocTemplate);
+
+	pDocTemplate = new CMultiDocTemplate(IDR_InvestmentAnalysisTYPE,
+		RUNTIME_CLASS(CInvestmentAnalysisDoc),
+		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
+		RUNTIME_CLASS(CFundArbitrageView));
+	if (!pDocTemplate)
+		return FALSE;
+	m_pDocTemplateFundArbitrage = pDocTemplate;
 	AddDocTemplate(pDocTemplate);
 
 	// create main MDI Frame window

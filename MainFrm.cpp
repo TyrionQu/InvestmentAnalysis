@@ -21,6 +21,7 @@
 #include "AddSecuritiesBox.h"
 #include "AddTradingRecordsBox.h"
 #include "CalculateRealRate.h"
+#include "FundArbitrageView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -38,7 +39,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_COMMAND(ID_TOOLS_CHECKDB, &CMainFrame::OnCheckdb)
 	ON_COMMAND(ID_TOOLS_ADD_SECURITIES, &CMainFrame::OnAddSecurities)
 	ON_COMMAND(ID_TOOLS_ADD_TRADING, &CMainFrame::OnAddTrading)
-	ON_COMMAND(ID_BTN_CALCULATE_RATE, &CMainFrame::OnBtnCalculateRate)
+	ON_COMMAND(ID_TOOLS_CALCULATE_RATE, &CMainFrame::OnToolCalculateRate)
+	ON_COMMAND(ID_TOOLS_CHECKPRICE, &CMainFrame::OnBtnCheckPrice)
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction
@@ -274,8 +276,14 @@ void CMainFrame::OnAddTrading()
 }
 
 
-void CMainFrame::OnBtnCalculateRate()
+void CMainFrame::OnToolCalculateRate()
 {
 	CCalculateRealRate box;
 	box.DoModal();
+}
+
+
+void CMainFrame::OnBtnCheckPrice()
+{
+	SwitchView(RUNTIME_CLASS(CFundArbitrageView));
 }

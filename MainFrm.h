@@ -58,7 +58,8 @@ public:
 	afx_msg void OnCheckdb();
 	afx_msg void OnAddSecurities();
 	afx_msg void OnAddTrading();
-	afx_msg void OnBtnCalculateRate();
+	afx_msg void OnToolCalculateRate();
+	afx_msg void OnBtnCheckPrice();
 };
 
 
